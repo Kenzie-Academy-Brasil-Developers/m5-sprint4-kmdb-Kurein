@@ -6,6 +6,8 @@ from genres.models import Genre
 
 from genres.serializers import GenreSerializer
 
+from reviews.serializers import ReviewSerializer
+
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=127)
@@ -15,6 +17,8 @@ class MovieSerializer(serializers.Serializer):
     synopsis = serializers.CharField()
 
     genres = GenreSerializer(many=True)
+
+    reviews = ReviewSerializer(many=True)
 
     def create(self, validated_data):
         genres = validated_data.pop("genres")

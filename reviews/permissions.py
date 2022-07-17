@@ -2,15 +2,14 @@ from rest_framework.permissions import BasePermission
 from rest_framework.views import Request
 
 
-class MoviesPermission(BasePermission):
+class ReviewPermission(BasePermission):
     def has_permission(self, request: Request, _):
-        admin_methods = {
+        staff_methods = {
             "POST",
-            "PATCH",
-            "DELETE",
+            "DELETE"
         }
 
-        if request.method in admin_methods:
-            return request.user.is_superuser
+        if request.method in staff_methods:
+            return request.user.is_staff
 
         return True

@@ -4,11 +4,11 @@ from rest_framework.authentication import TokenAuthentication
 
 from movies.models import Movie
 from movies.serializers import MovieSerializer
-from movies.permissions import MoviePermission
+from movies.permissions import MoviesPermission
 
 class MovieView(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [MoviePermission]
+    permission_classes = [MoviesPermission]
 
     def get(self, _:Request):
         movies = Movie.objects.all()
@@ -26,7 +26,7 @@ class MovieView(APIView):
 
 class MovieIdView(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [MoviePermission]
+    permission_classes = [MoviesPermission]
 
     def get(self, _:Request, movie_id):
         movie = get_object_or_404(Movie, pk=movie_id)
