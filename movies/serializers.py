@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.views import status
 
 from movies.models import Movie
 from genres.models import Genre
@@ -25,3 +26,15 @@ class MovieSerializer(serializers.Serializer):
             movie.genres.add(item)
 
         return movie
+
+    def update(self, instance, validated_data):
+
+        instance.title = validated_data.get('title', instance.title)
+        instance.duration = validated_data.get('duration', instance.duration)
+        instance.premiere = validated_data.get('premiere', instance.premiere)
+        instance.classification = validated_data.get('classification', instance.classification)
+        instance.synopsis = validated_data.get('synopsis', instance.synopsis)
+
+        instance.save()
+
+        return instance
